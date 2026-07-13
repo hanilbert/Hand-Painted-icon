@@ -15,7 +15,7 @@
 | P1 | **部分需要的图标未绘制** | 缺少若干常用服务/策略组图标（见 §4.1 清单） |
 | P2 | **订阅 JSON 覆盖严重不全** | 全库 800 个图标，`Semporia.json` 仅收录 379 个；`Accommodation`、`Fitness`、`Food-Delivery`、`Rectangular` 四个目录完全未收录 |
 | P3 | **订阅 JSON 指向上游仓库** | 所有 URL 指向 `Semporia/Hand-Painted-icon`，与本仓库脱钩，本仓库新增图标无法被订阅到 |
-| P4 | **文件命名不规范** | 订阅文件以人名 `Semporia.json` 命名；`Food-Delivery` 目录用连字符而其余目录用下划线；存在 10 个 `.orig.png` 冗余文件及 `._.DS_Store` 垃圾文件 |
+| P4 | **文件命名不规范** | 订阅文件以人名 `Semporia.json` 命名；`Food-Delivery` 目录用连字符而其余目录用下划线；存在 23 个 `.orig.png` 历史副本及 AppleDouble 垃圾文件 |
 | P5 | **README 不规范** | 无项目简介与使用说明；Google Suite 链接错误指向 Rounded_Rectangle；无图标预览表；JSON 内 `"Desing By"` 拼写错误 |
 | P6 | **纯手工维护，易漏** | 新增图标后需手工编辑 JSON，这是 P2 产生的根本原因 |
 
@@ -73,7 +73,7 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 ### 4.3 仓库规范化（P4/P5）
 
 - **FR-7** `Food-Delivery` 目录更名为 `Food_Delivery`（统一下划线）
-- **FR-8** 删除全部 `.orig.png`（10 个）与 `._.DS_Store` 等垃圾文件；添加 `.gitignore` 阻止 macOS 垃圾文件再次入库
+- **FR-8** 删除全部 `.orig.png` 历史副本（23 个）与 AppleDouble 等垃圾文件；添加 `.gitignore` 阻止系统垃圾文件再次入库
 - **FR-9** 重写 `README.md`：项目简介、订阅地址、支持的客户端及配置方法、分类目录表（含每类数量）、预览图、命名规范、致谢上游、License 说明
 - **FR-10** 修复 README 中 Google Suite 错误链接，所有目录链接指向本仓库
 

@@ -12,8 +12,8 @@
   commit: `chore: 清理 macOS 垃圾文件并添加 .gitignore`
   依赖：无
 
-- [ ] **T1.2 删除 .orig.png 冗余文件**
-  删除全部 10 个 `.orig.png`（Food-Delivery×7、Universal×1、Fitness×2）
+- [x] **T1.2 删除 .orig.png 冗余文件**
+  删除全部 23 个 `.orig.png` 历史副本（Accommodation×3、Food-Delivery×17、Universal×1、Fitness×2）
   commit: `chore: 删除 .orig.png 冗余源文件`
   依赖：无
 
