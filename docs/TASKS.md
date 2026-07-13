@@ -51,7 +51,7 @@
 
 ## M3 文档重写（v1.0 收尾）
 
-- [ ] **T3.1 重写 README.md**
+- [x] **T3.1 重写 README.md**
   按 PRD FR-9/FR-10：项目简介、订阅地址（icons.json）、Surge/QuanX/Stash/Loon 配置方法、分类目录表（含数量）、预览图、命名规范、迁移公告（Semporia.json 弃用计划 + Food_Delivery 改名说明）、致谢上游
   commit: `docs: 重写 README，规范项目说明与订阅指引`
   依赖：T2.2（订阅地址已生效）
