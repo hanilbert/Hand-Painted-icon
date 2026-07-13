@@ -13,7 +13,7 @@
 │  分类目录/*.png ──┐                                      │
 │                  │  scripts/generate_icons.py (扫描)     │
 │                  ▼                                      │
-│       icons.json + Semporia.json ◄── Actions 自动生成    │
+│              icons.json  ◄── GitHub Actions 自动生成     │
 └──────────────────┬──────────────────────────────────────┘
                    │ raw.githubusercontent.com
           ┌────────┴────────┐
@@ -46,7 +46,6 @@ Hand-Painted-icon/
 │       └── update-icons-json.yml
 ├── .gitignore
 ├── icons.json              # 订阅清单（生成物，勿手改）
-├── Semporia.json           # 旧订阅（v1.1 移除）
 ├── Hand-Painted-icon.png   # README 预览大图
 └── README.md
 ```
@@ -94,11 +93,11 @@ Hand-Painted-icon/
        2. 校验 PNG、108×108 画布、透明通道、隐藏文件与历史副本
        3. 检查显示名和 URL 重复，逐段编码 URL
        4. 按配置中的分类顺序和文件名字典序稳定排序
-输出:  icons.json 与过渡期 Semporia.json（UTF-8，4 空格缩进）
+输出:  icons.json（UTF-8，4 空格缩进）
 退出码: 0 = 成功；同时打印统计（每分类数量/总数），供 CI 日志检查
 ```
 
-可选参数：`--check`——校验两份清单是否与目录状态一致但不写文件，供 CI 和本地检查使用。
+可选参数：`--check`——校验清单是否与目录状态一致但不写文件，供 CI 和本地检查使用。
 
 ## 5. CI 工作流
 
@@ -109,25 +108,25 @@ validate-icons.yml:
   权限: contents: read
 
 update-icons-json.yml:
-  master 的 PNG、生成器或配置变化时重新生成两份清单
+  master 的 PNG、生成器或配置变化时重新生成清单
   只有实际变化才以 github-actions[bot] 提交，冲突时同步后重试一次
   权限: contents: write；同一时间只允许一个发布任务
 ```
 
-自动提交信息固定为 `chore: 自动更新图标订阅`。机器人提交只包含两份清单，且使用仓库令牌产生的提交不会再次触发普通 push 工作流。
+自动提交信息固定为 `chore: 自动更新图标订阅`。机器人提交只包含 `icons.json`，且使用仓库令牌产生的提交不会再次触发普通 push 工作流。
 
 ## 6. 兼容与迁移策略
 
 | 阶段 | Semporia.json | icons.json |
 |------|--------------|-----------|
-| v1.0 | 保留但冻结（内容替换为与 icons.json 相同、URL 指向本仓库，顶部 description 注明已迁移） | 上线，README 主推 |
-| v1.1 | 删除 | 唯一订阅入口 |
+| v1.0 | 保留但冻结，内容与正式清单同步 | 上线，README 主推 |
+| v1.1 | 已删除 | 唯一订阅入口 |
 
 `Food-Delivery → Food_Delivery` 改名使用 `git mv` 保留历史；旧路径直链会 404，在 README 的 Changelog 中注明。
 
 ## 7. 质量保障
 
-- **一致性门禁**：CI 中 `--check` 模式保证两份清单与目录一致
+- **一致性门禁**：CI 中 `--check` 模式保证清单与目录一致
 - **素材门禁**：生成器拒绝损坏图片、非 108 × 108 画布、缺少透明通道、重复条目和历史副本
 - **URL 可用性抽检**：验收时用 `curl` 抽样 10 条（见 PRD A2），不进 CI（避免对 raw.githubusercontent 频繁请求）
 - **命名规范**：README 中明文约定 `Upper_Snake_Case.png`；暂不做自动 lint（图标量小、人工可控），若后续违规频发再在 CI 中加校验

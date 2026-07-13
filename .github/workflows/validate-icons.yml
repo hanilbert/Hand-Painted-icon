@@ -7,7 +7,6 @@ on:
       - "scripts/**"
       - "iconset.config.json"
       - "icons.json"
-      - "Semporia.json"
   push:
     branches:
       - master

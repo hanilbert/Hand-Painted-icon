@@ -97,7 +97,7 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/Universal/I
 ## 迁移说明
 
 - 新订阅统一使用 `icons.json`。
-- `Semporia.json` 仅作旧地址过渡，内容已与新清单同步，并计划在新清单稳定运行至少一个月后移除。
+- 旧订阅 `Semporia.json` 已移除，请统一迁移到 `icons.json`。
 - `Food-Delivery` 已改名为 `Food_Delivery`，旧目录下的单图地址不再更新。
 
 ## 来源与授权

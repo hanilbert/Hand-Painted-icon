@@ -6,8 +6,7 @@
     },
     "iconset": {
         "name": "Hand Painted Icon",
-        "description": "Hand-painted icon set. Design by Semporia, maintained by Hanilbert.",
-        "legacy_description": "This legacy feed has migrated to icons.json. Design by Semporia, maintained by Hanilbert."
+        "description": "Hand-painted icon set. Design by Semporia, maintained by Hanilbert."
     },
     "categories": [
         "Accommodation",
@@ -27,10 +26,6 @@
         {
             "path": "icons.json",
             "description": "description"
-        },
-        {
-            "path": "Semporia.json",
-            "description": "legacy_description"
         }
     ]
 }

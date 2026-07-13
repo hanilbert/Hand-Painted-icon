@@ -64,7 +64,7 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 
 ### 4.2 订阅 JSON 重构（P2/P3/P4/P6）
 
-- **FR-1** 订阅文件更名为 `icons.json`；`Semporia.json` 保留一个过渡期后删除（v1.1 移除）
+- **FR-1** 订阅文件统一为 `icons.json`；旧文件 `Semporia.json` 在 v1.1 移除
 - **FR-2** `icons.json` 由脚本扫描仓库目录自动生成，收录全部 `*.png`（排除 `.orig.png` 与非图标图片）
 - **FR-3** 所有 URL 指向 `hanilbert/Hand-Painted-icon` 的 master 分支 raw 地址
 - **FR-4** JSON 顶层字段：`name`（Hand Painted Icon）、`description`（修正拼写，注明 Design By Semporia & Hanilbert）、`icons` 数组按 `分类/名称` 排序
@@ -101,13 +101,13 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 | 版本 | 内容 | 对应任务 |
 |------|------|---------|
 | v1.0 | 仓库规范化 + icons.json 全量生成 + CI 自动化 + README 重写 | TASKS.md M1–M3 |
-| v1.1 | 新订阅稳定运行至少一个月后移除 Semporia.json；补齐第一批缺失图标 | TASKS.md M4 |
+| v1.1 | 移除 Semporia.json；补齐第一批缺失图标 | TASKS.md M4 |
 | v2.0（远期） | 图标在线预览页（GitHub Pages） | 未排期 |
 
 ## 8. 风险
 
 | 风险 | 影响 | 对策 |
 |------|------|------|
-| 改名/删除 `Semporia.json` 导致旧订阅失效 | 已使用旧地址的用户断更 | v1.0 双文件并存，README 公告迁移，v1.1 再移除 |
+| 删除 `Semporia.json` 导致旧订阅失效 | 已使用旧地址的用户断更 | README 明确公告迁移到 `icons.json` |
 | `Food-Delivery` 目录改名导致外部直链失效 | 引用单图 URL 的配置失效 | 独立仓库刚起步、外部引用极少，README 中注明 |
 | CI 自动 commit 触发循环 | Actions 死循环 | workflow 内跳过 bot 提交 / 仅在 png 变更时触发 |

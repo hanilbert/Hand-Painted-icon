@@ -30,21 +30,21 @@ jobs:
         run: python scripts/generate_icons.py
       - name: Commit generated changes
         run: |
-          if git diff --quiet -- icons.json Semporia.json; then
+          if git diff --quiet -- icons.json; then
             echo "Icon feeds are already up to date."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- icons.json Semporia.json
+          git add -- icons.json
           git commit -m "chore: 自动更新图标订阅"
 
           if ! git push origin HEAD:master; then
             git pull --rebase origin master
             python scripts/generate_icons.py
-            if ! git diff --quiet -- icons.json Semporia.json; then
-              git add -- icons.json Semporia.json
+            if ! git diff --quiet -- icons.json; then
+              git add -- icons.json
               git commit --amend --no-edit
             fi
             git push origin HEAD:master

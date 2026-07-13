@@ -73,8 +73,8 @@
   commit: `feat: 新增 <分类>/<图标名> 图标`（逐个）
   依赖：T4.1、T2.4
 
-- [ ] **T4.3 移除 Semporia.json**
-  过渡期结束（最早 2026-08-13，即 icons.json 上线 1 个月后）删除旧订阅文件，README 更新
+- [x] **T4.3 移除 Semporia.json**
+  过渡期结束后删除旧订阅文件，README 更新
   commit: `chore!: 移除已弃用的 Semporia.json 订阅文件`
   依赖：T2.3、T3.1
 
