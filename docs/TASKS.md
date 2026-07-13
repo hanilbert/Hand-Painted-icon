@@ -29,9 +29,9 @@
   commit: `feat: 新增 icons.json 生成脚本`
   依赖：T1.1–T1.3（目录状态定型后再生成）
 
-- [ ] **T2.2 生成 icons.json 并本地验证**
-  运行脚本生成 `icons.json`；验证条目数 == 有效 PNG 数（约 790）；`curl` 抽检 10 条 URL 返回 200；JSON 语法校验
-  commit: `feat: 生成全量订阅文件 icons.json（覆盖 8 分类约 790 图标）`
+- [x] **T2.2 生成 icons.json 并本地验证**
+  运行脚本生成 `icons.json`；验证条目数 == 有效 PNG 数（当前 778）；`curl` 抽检 10 条 URL 返回 200；JSON 语法校验
+  commit: `feat: 生成全量订阅文件 icons.json（覆盖 8 分类 778 个图标）`
   依赖：T2.1
 
 - [ ] **T2.3 冻结 Semporia.json（兼容过渡）**

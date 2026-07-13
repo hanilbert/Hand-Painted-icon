@@ -13,7 +13,7 @@
 | # | 问题 | 现状证据 |
 |---|------|---------|
 | P1 | **部分需要的图标未绘制** | 缺少若干常用服务/策略组图标（见 §4.1 清单） |
-| P2 | **订阅 JSON 覆盖严重不全** | 全库 800 个图标，`Semporia.json` 仅收录 379 个；`Accommodation`、`Fitness`、`Food-Delivery`、`Rectangular` 四个目录完全未收录 |
+| P2 | **订阅 JSON 覆盖严重不全** | 清理前有 777 个有效图标，`Semporia.json` 仅收录 379 个；`Accommodation`、`Fitness`、`Food-Delivery`、`Rectangular` 四个目录完全未收录 |
 | P3 | **订阅 JSON 指向上游仓库** | 所有 URL 指向 `Semporia/Hand-Painted-icon`，与本仓库脱钩，本仓库新增图标无法被订阅到 |
 | P4 | **文件命名不规范** | 订阅文件以人名 `Semporia.json` 命名；`Food-Delivery` 目录用连字符而其余目录用下划线；存在 23 个 `.orig.png` 历史副本及 AppleDouble 垃圾文件 |
 | P5 | **README 不规范** | 无项目简介与使用说明；Google Suite 链接错误指向 Rounded_Rectangle；无图标预览表；JSON 内 `"Desing By"` 拼写错误 |
@@ -88,7 +88,7 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 
 | # | 标准 |
 |---|------|
-| A1 | `icons.json` 条目数 == 仓库内有效 PNG 总数（初次生成约 790 个，扣除 `.orig.png` 后） |
+| A1 | `icons.json` 条目数 == 仓库内有效 PNG 总数（当前含新增 IBKR 共 778 个） |
 | A2 | 随机抽取 10 条 URL 全部可访问（HTTP 200） |
 | A3 | Surge 与 Quantumult X 实测订阅成功、图标可选用 |
 | A4 | 新增一个测试图标并 push 后，CI 自动更新 `icons.json` 且包含该图标 |
