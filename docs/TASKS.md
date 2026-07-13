@@ -7,7 +7,7 @@
 
 ## M1 仓库规范化（v1.0 前置）
 
-- [ ] **T1.1 清理垃圾文件**
+- [x] **T1.1 清理垃圾文件**
   删除已跟踪的 `._.DS_Store`（含 `Social_Media/._.DS_Store`、根目录已 D 的那个），新增 `.gitignore`（`.DS_Store` / `._*` / `Thumbs.db`）
   commit: `chore: 清理 macOS 垃圾文件并添加 .gitignore`
   依赖：无
