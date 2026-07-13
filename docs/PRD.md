@@ -6,7 +6,7 @@
 
 本项目是一套供 **Surge / Quantumult X / Stash / Loon** 等代理工具使用的手绘风格图标集，fork 自 [Semporia/Hand-Painted-icon](https://github.com/Semporia/Hand-Painted-icon)，现独立维护于 [hanilbert/Hand-Painted-icon](https://github.com/hanilbert/Hand-Painted-icon)。
 
-用户在代理工具中通过订阅一个 JSON 文件（图标清单）获取图标，为策略组、节点、模块等配置项设置个性化图标。
+Stash 与 Loon 用户可导入 JSON 图标清单；Surge 与 Quantumult X 用户通过单张图片地址为策略组等配置项设置图标。
 
 ### 上游项目的不足（本项目要解决的问题）
 
@@ -39,7 +39,8 @@
 
 | 用户 | 场景 |
 |------|------|
-| Surge / QuanX / Stash / Loon 用户 | 在 App 内粘贴订阅 URL，为策略组/节点选择图标 |
+| Stash / Loon 用户 | 导入 `icons.json` 图标集，为策略组或节点选择图标 |
+| Surge / Quantumult X 用户 | 在配置中引用单张图标的 raw URL |
 | 配置分享者 | 在分享的配置文件中直接引用单个图标的 raw URL |
 | 仓库维护者（本人） | 绘制新图标 → 放入对应目录 → push → 订阅自动更新 |
 
@@ -68,7 +69,7 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 - **FR-3** 所有 URL 指向 `hanilbert/Hand-Painted-icon` 的 master 分支 raw 地址
 - **FR-4** JSON 顶层字段：`name`（Hand Painted Icon）、`description`（修正拼写，注明 Design By Semporia & Hanilbert）、`icons` 数组按 `分类/名称` 排序
 - **FR-5** 图标 `name` 带分类信息以避免跨目录重名（如 `Google_Suite/Calendar` 与 `Fitness/Calendar`），具体格式见 ARCHITECTURE.md
-- **FR-6** 配置 GitHub Actions：push 中包含 png 变更时自动重新生成 `icons.json` 并提交
+- **FR-6** 配置 GitHub Actions：只读工作流负责校验；master 中包含 PNG、生成器或配置变更时，发布工作流自动更新两份清单
 
 ### 4.3 仓库规范化（P4/P5）
 
@@ -79,7 +80,7 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 
 ## 5. 图标入库规范（对新增图标生效）
 
-- 格式：PNG，透明背景，与现有图标画风/尺寸一致（正方形画布）
+- 格式：108 × 108 PNG，带透明通道，与现有图标画风一致
 - 文件命名：`Upper_Snake_Case.png`，多单词用下划线分隔，如 `NetEase_Music.png`
 - 品牌名保留官方大小写：`BiliBili.png`、`GitHub.png`、`deviantART.png`
 - 归入既有 8 个分类目录之一；不确定时放 `Universal`
@@ -90,17 +91,17 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 |---|------|
 | A1 | `icons.json` 条目数 == 仓库内有效 PNG 总数（当前含新增 IBKR 共 778 个） |
 | A2 | 随机抽取 10 条 URL 全部可访问（HTTP 200） |
-| A3 | Surge 与 Quantumult X 实测订阅成功、图标可选用 |
+| A3 | Stash 与 Loon 实测整包导入；Surge 与 Quantumult X 实测单图地址可显示 |
 | A4 | 新增一个测试图标并 push 后，CI 自动更新 `icons.json` 且包含该图标 |
 | A5 | 仓库内无 `.orig.png`、无 `.DS_Store` 类文件 |
-| A6 | README 所有链接可点且指向本仓库 |
+| A6 | README 目录链接指向本仓库，所有使用示例使用本仓库资源地址 |
 
 ## 7. 里程碑
 
 | 版本 | 内容 | 对应任务 |
 |------|------|---------|
 | v1.0 | 仓库规范化 + icons.json 全量生成 + CI 自动化 + README 重写 | TASKS.md M1–M3 |
-| v1.1 | 移除 Semporia.json；补齐第一批缺失图标 | TASKS.md M4 |
+| v1.1 | 新订阅稳定运行至少一个月后移除 Semporia.json；补齐第一批缺失图标 | TASKS.md M4 |
 | v2.0（远期） | 图标在线预览页（GitHub Pages） | 未排期 |
 
 ## 8. 风险

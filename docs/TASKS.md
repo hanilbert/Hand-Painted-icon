@@ -25,7 +25,7 @@
 ## M2 订阅 JSON 自动化（v1.0 核心）
 
 - [x] **T2.1 编写生成脚本 scripts/generate_icons.py**
-  按 ARCHITECTURE.md §4 实现：自动发现分类目录、过滤规则、`分类 - 名称` 命名、URL 编码、稳定排序、`--check` 模式
+  按 ARCHITECTURE.md §4 实现：读取明确分类配置、校验 PNG 规格、`分类 - 名称` 命名、URL 编码、稳定排序、`--check` 模式
   commit: `feat: 新增 icons.json 生成脚本`
   依赖：T1.1–T1.3（目录状态定型后再生成）
 
@@ -40,11 +40,11 @@
   依赖：T2.2
 
 - [x] **T2.4 配置 GitHub Actions 自动更新**
-  新增 `.github/workflows/update-icons-json.yml`（按 ARCHITECTURE.md §5：png 路径触发、diff 才提交、路径过滤防环）
+  新增只读验证与自动发布工作流（按 ARCHITECTURE.md §5：PNG 路径触发、diff 才提交、限制写入范围并防止并发冲突）
   commit: `ci: 新增 icons.json 自动更新工作流`
   依赖：T2.1
 
-- [ ] **T2.5 端到端验证 CI**
+- [x] **T2.5 端到端验证 CI**
   push 一个测试 png（或改动现有 png 的 touch 提交）→ 确认 bot 自动提交更新了 icons.json → 移除测试文件
   commit: 无（验证性任务，产生的提交由 CI 生成）
   依赖：T2.4，且仓库已 push 到 GitHub
@@ -56,8 +56,8 @@
   commit: `docs: 重写 README，规范项目说明与订阅指引`
   依赖：T2.2（订阅地址已生效）
 
-- [ ] **T3.2 在 Surge / Quantumult X 实机验收**
-  两个客户端实测订阅 → 记录结果到 PR/commit 描述；对应 PRD 验收 A3
+- [~] **T3.2 在四个客户端实机验收**
+  Stash / Loon 实测整包导入，Surge / Quantumult X 实测单图 URL；结果记录到 ACCEPTANCE.md；对应 PRD 验收 A3
   commit: 无（验收任务）
   依赖：T3.1
 
@@ -74,7 +74,7 @@
   依赖：T4.1、T2.4
 
 - [ ] **T4.3 移除 Semporia.json**
-  过渡期结束（建议 icons.json 上线 1 个月后）删除旧订阅文件，README 更新
+  过渡期结束（最早 2026-08-13，即 icons.json 上线 1 个月后）删除旧订阅文件，README 更新
   commit: `chore!: 移除已弃用的 Semporia.json 订阅文件`
   依赖：T2.3、T3.1
 

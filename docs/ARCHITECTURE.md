@@ -13,20 +13,21 @@
 │  分类目录/*.png ──┐                                      │
 │                  │  scripts/generate_icons.py (扫描)     │
 │                  ▼                                      │
-│              icons.json  ◄── GitHub Actions 自动再生成   │
+│       icons.json + Semporia.json ◄── Actions 自动生成    │
 └──────────────────┬──────────────────────────────────────┘
                    │ raw.githubusercontent.com
-                   ▼
-      Surge / Quantumult X / Stash / Loon（订阅方）
+          ┌────────┴────────┐
+          ▼                 ▼
+  Stash / Loon 整包导入   Surge / QuanX 单图引用
 ```
 
 ## 2. 目录结构（目标态）
 
 ```
 Hand-Painted-icon/
-├── Accommodation/          # 住宿类 (50)
-├── Fitness/                # 健身类 (49)
-├── Food_Delivery/          # 外卖类 (50)  ← 由 Food-Delivery 改名
+├── Accommodation/          # 住宿类 (47)
+├── Fitness/                # 健身类 (47)
+├── Food_Delivery/          # 外卖类 (33)  ← 由 Food-Delivery 改名
 ├── Google_Suite/           # Google 套件 (23)
 ├── Rectangular/            # 矩形国旗 (264)
 ├── Rounded_Rectangle/      # 圆角矩形国旗 (262)
@@ -38,8 +39,10 @@ Hand-Painted-icon/
 │   └── TASKS.md
 ├── scripts/
 │   └── generate_icons.py   # 订阅 JSON 生成器
+├── iconset.config.json     # 分类、仓库、画布与输出配置
 ├── .github/
 │   └── workflows/
+│       ├── validate-icons.yml
 │       └── update-icons-json.yml
 ├── .gitignore
 ├── icons.json              # 订阅清单（生成物，勿手改）
@@ -49,17 +52,17 @@ Hand-Painted-icon/
 ```
 
 **约定**：
-- 根目录下所有「首字母大写的目录」均视为图标分类目录，脚本自动发现，新增分类无需改代码
-- `docs/`、`scripts/`、`.github/` 为小写，天然与分类目录区分
+- 仅 `iconset.config.json` 明确列出的目录属于图标分类，避免误收预览或素材目录
+- 新增分类必须同时更新配置，分类顺序也以配置为准
 
 ## 3. 订阅 JSON 格式
 
-Surge / QuanX 图标订阅的事实标准格式（与上游一致，保持兼容）：
+`icons.json` 延续上游图标集的最小结构，供 Stash / Loon 导入并保持社区兼容：
 
 ```json
 {
     "name": "Hand Painted Icon",
-    "description": "Hand-painted icon set for Surge / Quantumult X. Design by Semporia, maintained by Hanilbert.",
+    "description": "Hand-painted icon set. Design by Semporia, maintained by Hanilbert.",
     "icons": [
         {
             "name": "Universal - Netflix",
@@ -81,34 +84,37 @@ Surge / QuanX 图标订阅的事实标准格式（与上游一致，保持兼容
 
 ## 4. 生成脚本 `scripts/generate_icons.py`
 
-**技术选型：Python 3 标准库**（macOS 自带 python3，零依赖；仓库无 Node 生态，不引入 package.json）。
+**技术选型：Python 3.11+ 标准库**。CI 固定使用 Python 3.13；本地环境需自行提供 Python 3，不依赖操作系统预装。
 
 职责与行为：
 
 ```
-输入:  仓库根目录（脚本按自身位置定位，无需传参）
-处理:  1. 发现分类目录（根目录下首字母大写的目录）
-       2. 递归收集 *.png，应用过滤规则
-       3. URL 编码文件路径（防御空格等特殊字符）
-       4. 按 (分类, 文件名) 排序
-输出:  icons.json（UTF-8，4 空格缩进，与上游格式对齐）
+输入:  iconset.config.json 与配置列出的分类目录
+处理:  1. 递归收集配置目录中的 *.png
+       2. 校验 PNG、108×108 画布、透明通道、隐藏文件与历史副本
+       3. 检查显示名和 URL 重复，逐段编码 URL
+       4. 按配置中的分类顺序和文件名字典序稳定排序
+输出:  icons.json 与过渡期 Semporia.json（UTF-8，4 空格缩进）
 退出码: 0 = 成功；同时打印统计（每分类数量/总数），供 CI 日志检查
 ```
 
-可选参数：`--check`——只校验 icons.json 是否与目录状态一致（不写文件），供 CI/pre-commit 做一致性门禁。
+可选参数：`--check`——校验两份清单是否与目录状态一致但不写文件，供 CI 和本地检查使用。
 
-## 5. CI 工作流 `.github/workflows/update-icons-json.yml`
+## 5. CI 工作流
 
 ```yaml
-触发:  push 到 master，且路径匹配 ['**.png', 'scripts/**']
-步骤:  checkout → 运行 generate_icons.py → 若 icons.json 有 diff
-       则以 github-actions[bot] 身份 commit & push
-防环:  仅当 icons.json 有实际变更才提交；bot 提交只改 icons.json，
-       不含 png，不会再次触发（路径过滤天然防环）
-权限:  contents: write（使用内置 GITHUB_TOKEN，无需额外 secret）
+validate-icons.yml:
+  pull request: 使用 --check 拦截图片或清单不一致
+  master push: 重新生成后校验图片和输出
+  权限: contents: read
+
+update-icons-json.yml:
+  master 的 PNG、生成器或配置变化时重新生成两份清单
+  只有实际变化才以 github-actions[bot] 提交，冲突时同步后重试一次
+  权限: contents: write；同一时间只允许一个发布任务
 ```
 
-提交信息固定为 `chore: 自动更新 icons.json`。
+自动提交信息固定为 `chore: 自动更新图标订阅`。机器人提交只包含两份清单，且使用仓库令牌产生的提交不会再次触发普通 push 工作流。
 
 ## 6. 兼容与迁移策略
 
@@ -121,7 +127,8 @@ Surge / QuanX 图标订阅的事实标准格式（与上游一致，保持兼容
 
 ## 7. 质量保障
 
-- **一致性门禁**：CI 中 `--check` 模式保证 icons.json 与目录永不脱节
+- **一致性门禁**：CI 中 `--check` 模式保证两份清单与目录一致
+- **素材门禁**：生成器拒绝损坏图片、非 108 × 108 画布、缺少透明通道、重复条目和历史副本
 - **URL 可用性抽检**：验收时用 `curl` 抽样 10 条（见 PRD A2），不进 CI（避免对 raw.githubusercontent 频繁请求）
 - **命名规范**：README 中明文约定 `Upper_Snake_Case.png`；暂不做自动 lint（图标量小、人工可控），若后续违规频发再在 CI 中加校验
 - **`.gitignore`**：屏蔽 `.DS_Store`、`._*`、`Thumbs.db`
