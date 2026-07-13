@@ -34,7 +34,7 @@
   commit: `feat: 生成全量订阅文件 icons.json（覆盖 8 分类 778 个图标）`
   依赖：T2.1
 
-- [ ] **T2.3 冻结 Semporia.json（兼容过渡）**
+- [x] **T2.3 冻结 Semporia.json（兼容过渡）**
   内容替换为与 icons.json 一致、URL 指向本仓库，description 注明"已迁移至 icons.json"
   commit: `fix: 修正 Semporia.json 指向本仓库并标记迁移`
   依赖：T2.2
