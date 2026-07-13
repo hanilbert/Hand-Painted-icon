@@ -1,0 +1,37 @@
+name: Validate icons
+
+on:
+  pull_request:
+    paths:
+      - "**/*.png"
+      - "scripts/**"
+      - "iconset.config.json"
+      - "icons.json"
+      - "Semporia.json"
+  push:
+    branches:
+      - master
+    paths:
+      - "**/*.png"
+      - "scripts/**"
+      - "iconset.config.json"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Validate images and generated files
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python scripts/generate_icons.py --check
+          else
+            python scripts/generate_icons.py
+            python scripts/generate_icons.py --check
+          fi

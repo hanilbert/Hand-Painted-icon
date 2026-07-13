@@ -39,7 +39,7 @@
   commit: `fix: 修正 Semporia.json 指向本仓库并标记迁移`
   依赖：T2.2
 
-- [ ] **T2.4 配置 GitHub Actions 自动更新**
+- [x] **T2.4 配置 GitHub Actions 自动更新**
   新增 `.github/workflows/update-icons-json.yml`（按 ARCHITECTURE.md §5：png 路径触发、diff 才提交、路径过滤防环）
   commit: `ci: 新增 icons.json 自动更新工作流`
   依赖：T2.1

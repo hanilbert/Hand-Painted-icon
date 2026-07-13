@@ -1,0 +1,51 @@
+name: Update icon feeds
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "**/*.png"
+      - "scripts/**"
+      - "iconset.config.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-icon-feeds-master
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Generate icon feeds
+        run: python scripts/generate_icons.py
+      - name: Commit generated changes
+        run: |
+          if git diff --quiet -- icons.json Semporia.json; then
+            echo "Icon feeds are already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- icons.json Semporia.json
+          git commit -m "chore: 自动更新图标订阅"
+
+          if ! git push origin HEAD:master; then
+            git pull --rebase origin master
+            python scripts/generate_icons.py
+            if ! git diff --quiet -- icons.json Semporia.json; then
+              git add -- icons.json Semporia.json
+              git commit --amend --no-edit
+            fi
+            git push origin HEAD:master
+          fi
