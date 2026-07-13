@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 
 | 图标 | 分类目录 | 状态 |
 |------|---------|------|
-| IBKR | Universal | 第一批，待规范化入库 |
+| IBKR | Universal | 已入库 |
 
 **建议候选**（按同类图标仓库常见需求，供筛选）：小红书✅(已有 XiaoHongShu)、抖音/TikTok、Telegram✅(Social_Media 已有)、ChatGPT、Claude、Gemini、Emby、哔哩哔哩✅(已有 BiliBili)、美团、拼多多、京东、淘宝、支付宝、PayPal、香港/台湾/日本/美国/新加坡地区节点（Rectangular/Rounded_Rectangle 旗帜可覆盖）。
 
