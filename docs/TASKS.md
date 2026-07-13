@@ -17,7 +17,7 @@
   commit: `chore: 删除 .orig.png 冗余源文件`
   依赖：无
 
-- [ ] **T1.3 目录改名 Food-Delivery → Food_Delivery**
+- [x] **T1.3 目录改名 Food-Delivery → Food_Delivery**
   使用 `git mv` 保留历史；全库 grep 确认无残留引用
   commit: `refactor: 统一目录命名，Food-Delivery 改为 Food_Delivery`
   依赖：T1.2（避免改名后再删文件产生两次 rename）
