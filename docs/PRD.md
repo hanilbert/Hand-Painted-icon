@@ -53,11 +53,11 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
 
 ### 4.1 新增图标清单（P1）
 
-> ⚠️ **占位清单**：具体待补充，确认一个补一个。新增图标须遵循 §5 的命名与入库规范。
+新增图标须遵循 §5 的命名与入库规范。当前第一批以维护者已提供的素材为准。
 
 | 图标 | 分类目录 | 状态 |
 |------|---------|------|
-| _待补充_ | _待定_ | 待绘制 |
+| IBKR | Universal | 第一批，待规范化入库 |
 
 **建议候选**（按同类图标仓库常见需求，供筛选）：小红书✅(已有 XiaoHongShu)、抖音/TikTok、Telegram✅(Social_Media 已有)、ChatGPT、Claude、Gemini、Emby、哔哩哔哩✅(已有 BiliBili)、美团、拼多多、京东、淘宝、支付宝、PayPal、香港/台湾/日本/美国/新加坡地区节点（Rectangular/Rounded_Rectangle 旗帜可覆盖）。
 
