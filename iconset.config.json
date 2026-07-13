@@ -1,0 +1,36 @@
+{
+    "repository": {
+        "owner": "hanilbert",
+        "name": "Hand-Painted-icon",
+        "branch": "master"
+    },
+    "iconset": {
+        "name": "Hand Painted Icon",
+        "description": "Hand-painted icon set. Design by Semporia, maintained by Hanilbert.",
+        "legacy_description": "This legacy feed has migrated to icons.json. Design by Semporia, maintained by Hanilbert."
+    },
+    "categories": [
+        "Accommodation",
+        "Fitness",
+        "Food_Delivery",
+        "Google_Suite",
+        "Rectangular",
+        "Rounded_Rectangle",
+        "Social_Media",
+        "Universal"
+    ],
+    "canvas": {
+        "width": 108,
+        "height": 108
+    },
+    "outputs": [
+        {
+            "path": "icons.json",
+            "description": "description"
+        },
+        {
+            "path": "Semporia.json",
+            "description": "legacy_description"
+        }
+    ]
+}

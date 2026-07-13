@@ -24,7 +24,7 @@
 
 ## M2 订阅 JSON 自动化（v1.0 核心）
 
-- [ ] **T2.1 编写生成脚本 scripts/generate_icons.py**
+- [x] **T2.1 编写生成脚本 scripts/generate_icons.py**
   按 ARCHITECTURE.md §4 实现：自动发现分类目录、过滤规则、`分类 - 名称` 命名、URL 编码、稳定排序、`--check` 模式
   commit: `feat: 新增 icons.json 生成脚本`
   依赖：T1.1–T1.3（目录状态定型后再生成）
