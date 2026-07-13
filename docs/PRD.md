@@ -1,0 +1,112 @@
+# PRD — Hand-Painted-icon 手绘图标集
+
+> 版本：v1.0 ｜ 日期：2026-07-13 ｜ 维护者：Hanilbert
+
+## 1. 项目背景
+
+本项目是一套供 **Surge / Quantumult X / Stash / Loon** 等代理工具使用的手绘风格图标集，fork 自 [Semporia/Hand-Painted-icon](https://github.com/Semporia/Hand-Painted-icon)，现独立维护于 [hanilbert/Hand-Painted-icon](https://github.com/hanilbert/Hand-Painted-icon)。
+
+用户在代理工具中通过订阅一个 JSON 文件（图标清单）获取图标，为策略组、节点、模块等配置项设置个性化图标。
+
+### 上游项目的不足（本项目要解决的问题）
+
+| # | 问题 | 现状证据 |
+|---|------|---------|
+| P1 | **部分需要的图标未绘制** | 缺少若干常用服务/策略组图标（见 §4.1 清单） |
+| P2 | **订阅 JSON 覆盖严重不全** | 全库 800 个图标，`Semporia.json` 仅收录 379 个；`Accommodation`、`Fitness`、`Food-Delivery`、`Rectangular` 四个目录完全未收录 |
+| P3 | **订阅 JSON 指向上游仓库** | 所有 URL 指向 `Semporia/Hand-Painted-icon`，与本仓库脱钩，本仓库新增图标无法被订阅到 |
+| P4 | **文件命名不规范** | 订阅文件以人名 `Semporia.json` 命名；`Food-Delivery` 目录用连字符而其余目录用下划线；存在 10 个 `.orig.png` 冗余文件及 `._.DS_Store` 垃圾文件 |
+| P5 | **README 不规范** | 无项目简介与使用说明；Google Suite 链接错误指向 Rounded_Rectangle；无图标预览表；JSON 内 `"Desing By"` 拼写错误 |
+| P6 | **纯手工维护，易漏** | 新增图标后需手工编辑 JSON，这是 P2 产生的根本原因 |
+
+## 2. 目标与非目标
+
+### 2.1 目标
+
+1. **全量可订阅**：订阅 JSON 自动覆盖仓库内 100% 图标，URL 指向本仓库
+2. **规范化**：统一文件/目录命名规范，清理冗余文件，重写 README
+3. **可扩展**：建立"新增图标 → 自动进入订阅"的零成本维护流程（脚本 + CI）
+4. **补齐缺失图标**：按需求清单逐步绘制/收录新图标
+
+### 2.2 非目标（本期不做）
+
+- 不做图标在线预览网站（可作为远期迭代）
+- 不改变现有图标的绘画风格与画布规格
+- 不重绘上游已有图标
+- 不支持 SVG / 多分辨率变体
+
+## 3. 用户与使用场景
+
+| 用户 | 场景 |
+|------|------|
+| Surge / QuanX / Stash / Loon 用户 | 在 App 内粘贴订阅 URL，为策略组/节点选择图标 |
+| 配置分享者 | 在分享的配置文件中直接引用单个图标的 raw URL |
+| 仓库维护者（本人） | 绘制新图标 → 放入对应目录 → push → 订阅自动更新 |
+
+**核心订阅地址（改名后）**：
+
+```
+https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
+```
+
+## 4. 功能需求
+
+### 4.1 新增图标清单（P1）
+
+> ⚠️ **占位清单**：具体待补充，确认一个补一个。新增图标须遵循 §5 的命名与入库规范。
+
+| 图标 | 分类目录 | 状态 |
+|------|---------|------|
+| _待补充_ | _待定_ | 待绘制 |
+
+**建议候选**（按同类图标仓库常见需求，供筛选）：小红书✅(已有 XiaoHongShu)、抖音/TikTok、Telegram✅(Social_Media 已有)、ChatGPT、Claude、Gemini、Emby、哔哩哔哩✅(已有 BiliBili)、美团、拼多多、京东、淘宝、支付宝、PayPal、香港/台湾/日本/美国/新加坡地区节点（Rectangular/Rounded_Rectangle 旗帜可覆盖）。
+
+### 4.2 订阅 JSON 重构（P2/P3/P4/P6）
+
+- **FR-1** 订阅文件更名为 `icons.json`；`Semporia.json` 保留一个过渡期后删除（v1.1 移除）
+- **FR-2** `icons.json` 由脚本扫描仓库目录自动生成，收录全部 `*.png`（排除 `.orig.png` 与非图标图片）
+- **FR-3** 所有 URL 指向 `hanilbert/Hand-Painted-icon` 的 master 分支 raw 地址
+- **FR-4** JSON 顶层字段：`name`（Hand Painted Icon）、`description`（修正拼写，注明 Design By Semporia & Hanilbert）、`icons` 数组按 `分类/名称` 排序
+- **FR-5** 图标 `name` 带分类信息以避免跨目录重名（如 `Google_Suite/Calendar` 与 `Fitness/Calendar`），具体格式见 ARCHITECTURE.md
+- **FR-6** 配置 GitHub Actions：push 中包含 png 变更时自动重新生成 `icons.json` 并提交
+
+### 4.3 仓库规范化（P4/P5）
+
+- **FR-7** `Food-Delivery` 目录更名为 `Food_Delivery`（统一下划线）
+- **FR-8** 删除全部 `.orig.png`（10 个）与 `._.DS_Store` 等垃圾文件；添加 `.gitignore` 阻止 macOS 垃圾文件再次入库
+- **FR-9** 重写 `README.md`：项目简介、订阅地址、支持的客户端及配置方法、分类目录表（含每类数量）、预览图、命名规范、致谢上游、License 说明
+- **FR-10** 修复 README 中 Google Suite 错误链接，所有目录链接指向本仓库
+
+## 5. 图标入库规范（对新增图标生效）
+
+- 格式：PNG，透明背景，与现有图标画风/尺寸一致（正方形画布）
+- 文件命名：`Upper_Snake_Case.png`，多单词用下划线分隔，如 `NetEase_Music.png`
+- 品牌名保留官方大小写：`BiliBili.png`、`GitHub.png`、`deviantART.png`
+- 归入既有 8 个分类目录之一；不确定时放 `Universal`
+
+## 6. 验收标准
+
+| # | 标准 |
+|---|------|
+| A1 | `icons.json` 条目数 == 仓库内有效 PNG 总数（初次生成约 790 个，扣除 `.orig.png` 后） |
+| A2 | 随机抽取 10 条 URL 全部可访问（HTTP 200） |
+| A3 | Surge 与 Quantumult X 实测订阅成功、图标可选用 |
+| A4 | 新增一个测试图标并 push 后，CI 自动更新 `icons.json` 且包含该图标 |
+| A5 | 仓库内无 `.orig.png`、无 `.DS_Store` 类文件 |
+| A6 | README 所有链接可点且指向本仓库 |
+
+## 7. 里程碑
+
+| 版本 | 内容 | 对应任务 |
+|------|------|---------|
+| v1.0 | 仓库规范化 + icons.json 全量生成 + CI 自动化 + README 重写 | TASKS.md M1–M3 |
+| v1.1 | 移除 Semporia.json；补齐第一批缺失图标 | TASKS.md M4 |
+| v2.0（远期） | 图标在线预览页（GitHub Pages） | 未排期 |
+
+## 8. 风险
+
+| 风险 | 影响 | 对策 |
+|------|------|------|
+| 改名/删除 `Semporia.json` 导致旧订阅失效 | 已使用旧地址的用户断更 | v1.0 双文件并存，README 公告迁移，v1.1 再移除 |
+| `Food-Delivery` 目录改名导致外部直链失效 | 引用单图 URL 的配置失效 | 独立仓库刚起步、外部引用极少，README 中注明 |
+| CI 自动 commit 触发循环 | Actions 死循环 | workflow 内跳过 bot 提交 / 仅在 png 变更时触发 |
