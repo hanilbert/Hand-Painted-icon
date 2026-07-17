@@ -6,7 +6,7 @@
 
 ## 图标清单
 
-全量清单包含 8 个分类、778 个图标。正式地址：
+全量清单包含 8 个分类、780 个图标。正式地址：
 
 ```text
 https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/icons.json
@@ -68,9 +68,9 @@ static = 自动选择, ProxyA, ProxyB, img-url=https://raw.githubusercontent.com
 | [Google_Suite](Google_Suite) | 23 | Google 服务 |
 | [Rectangular](Rectangular) | 264 | 矩形地区旗帜 |
 | [Rounded_Rectangle](Rounded_Rectangle) | 262 | 圆角地区旗帜 |
-| [Social_Media](Social_Media) | 69 | 社交媒体与网络服务 |
-| [Universal](Universal) | 33 | 通用策略与其他服务 |
-| **合计** | **778** | |
+| [Social_Media](Social_Media) | 70 | 社交媒体与网络服务 |
+| [Universal](Universal) | 34 | 通用策略与其他服务 |
+| **合计** | **780** | |
 
 ## 单张图标地址
 
