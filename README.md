@@ -94,12 +94,6 @@ https://raw.githubusercontent.com/hanilbert/Hand-Painted-icon/master/Universal/I
 - 图标放入现有分类；无法确定时放入 `Universal`。
 - 新增或修改后运行 `python3 scripts/generate_icons.py`，再运行 `python3 scripts/generate_icons.py --check` 检查结果。
 
-## 迁移说明
+## 来源
 
-- 新订阅统一使用 `icons.json`。
-- 旧订阅 `Semporia.json` 已移除，请统一迁移到 `icons.json`。
-- `Food-Delivery` 已改名为 `Food_Delivery`，旧目录下的单图地址不再更新。
-
-## 来源与授权
-
-感谢 [Semporia](https://github.com/Semporia) 创建原始图标集。本仓库目前没有统一的开源许可证，上游素材的再使用、修改和分发范围仍需取得原作者确认；请勿把公开可见或可 fork 视为已获得其他使用授权。
+感谢 [Semporia](https://github.com/Semporia) 创建原始图标集。
